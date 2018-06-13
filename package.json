@@ -1,0 +1,26 @@
+{
+  "name": "recipe-app",
+  "version": "1.0.0",
+  "description": "a recipe list app",
+  "main": "server.js",
+  "scripts": {
+    "start": "./server.js",
+    "test": "npm run test:unit",
+    "test:unit": "nyc mocha ./test/*/*.test.js",
+    "test:unit:debug": "mocha --inspect-brk ./test/*/*.test.js"
+  },
+  "author": "Rick Markins",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "assume": "^2.0.1",
+    "assume-sinon": "^1.0.0",
+    "mocha": "^5.1.1",
+    "nyc": "^11.6.0",
+    "proxyquire": "^2.0.1",
+    "sinon": "^4.5.0"
+  }
+}
