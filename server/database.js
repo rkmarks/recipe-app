@@ -1,5 +1,5 @@
 const asyncFs = require('../async-fs');
-
+const fs = require('fs');
 
 module.exports = class Database {
 

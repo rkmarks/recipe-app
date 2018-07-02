@@ -5,9 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "./server.js",
-    "test": "npm run test:unit",
-    "test:unit": "nyc mocha ./test/*/*.test.js",
-    "test:unit:debug": "mocha --inspect-brk ./test/*/*.test.js"
+    "debug": "node --inspect ./server.js",
+    "test": "nyc --reporter=text --reporter=html npm run test:unit",
+    "test:unit": "mocha ./test/**/*.test.js ",
+    "test:unit:debug": "mocha --inspect-brk ./test/unit/**/*.test.js"
   },
   "author": "Rick Markins",
   "license": "UNLICENSED",

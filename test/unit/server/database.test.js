@@ -1,6 +1,6 @@
 const assume = require('assume');
 
-const asyncFs = require('../../async-fs');
+const asyncFs = require('../../../async-fs');
 const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 
@@ -21,7 +21,7 @@ describe('Database', () => {
       readFile: sandbox.stub(),
       unlink: sandbox.stub()
     };
-    Database = proxyquire('../../server/database', {
+    Database = proxyquire('../../../server/database', {
       '../async-fs': mockAsyncFs
     });
   });
@@ -179,7 +179,38 @@ describe('Database', () => {
     });
   });
 
-  describe('writeIndex()', () => {
+  describe('.writeIndex()', () => {
 
+    it('writes the file', async () => {
+      mockAsyncFs.writeFile.resolves()
+      await db.writeIndex();
+      assume(mockAsyncFs.writeFile).has.been.calledWith('./test-data/index.json');
+    });
   });
+
+  describe('.removeItem()', () => {
+    let writeIndexStub;
+    beforeEach(() => {
+      db.index = {
+        'foo': { 'title': 'sometitle' }
+      }
+      writeIndexStub = sandbox.stub(db, 'writeIndex');
+    });
+    
+    afterEach(() => {
+      writeIndexStub.restore();
+    });
+    it('removes a file from the database', async () => {
+      mockAsyncFs.unlink.resolves();
+      await db.removeItem('foo');
+      assume(mockAsyncFs.unlink).has.been.calledWith('./test-data/foo.json');
+      assume(db.index).deep.equals({});
+    });
+  });
+
+  describe('.itemExists()', () => {
+    it('should return true if file exists', async () => {
+      
+    })
+  })
 });
